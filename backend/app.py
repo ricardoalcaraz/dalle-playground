@@ -40,13 +40,9 @@ def generate_images_api():
         Path(dir_name).mkdir(parents=True, exist_ok=True)
     
     for idx, img in enumerate(generated_imgs):
-        if args.save_to_disk: 
-          img.save(os.path.join(dir_name, f'{idx}.{args.img_format}'), format=args.img_format)
-
-        buffered = BytesIO()
-        img.save(buffered, format=args.img_format)
-        img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
-        returned_generated_images.append(img_str)
+        file_name = f'{idx}.{args.img_format}'
+        img.save(os.path.join(dir_name, file_name), format=args.img_format)
+        returned_generated_images.append(file_name)
 
     print(f"Created {num_images} images from text prompt [{text_prompt}]")
     
